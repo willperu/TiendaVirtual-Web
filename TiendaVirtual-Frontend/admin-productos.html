@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Productos - Tienda Virtual</title>
+
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <h2>Tienda</h2>
+
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="admin-productos.html">Productos</a></li>
+          <li><a href="ventas.html">Ventas</a></li>
+          <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTENIDO -->
+      <div class="main">
+        <h1>Productos</h1>
+
+        <button onclick="mostrarFormulario()">➕ Nuevo producto</button>
+
+        <br /><br />
+
+        <table border="1" width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody id="tablaProductos"></tbody>
+        </table>
+
+        <br />
+
+        <!-- FORMULARIO -->
+
+        <div id="formularioProducto" style="display: none">
+          <h3>Producto</h3>
+
+          <input type="hidden" id="productoId" />
+
+          <input type="text" id="nombre" placeholder="Nombre" />
+
+          <input type="number" id="precio" placeholder="Precio" />
+
+          <input type="number" id="stock" placeholder="Stock" />
+
+          <button onclick="guardarProducto()">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/admin-productos.js"></script>
+  </body>
+</html>

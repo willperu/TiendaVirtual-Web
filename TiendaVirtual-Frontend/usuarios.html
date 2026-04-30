@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Usuarios - Tienda Virtual</title>
+    <link rel="stylesheet" href="usuarios.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <h2>Tienda</h2>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="admin-productos.html">Productos</a></li>
+          <li><a href="ventas.html">Ventas</a></li>
+          <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTENIDO PRINCIPAL -->
+      <div class="main">
+        <h1>Usuarios</h1>
+        <button type="button" id="nuevoUsuarioBtn">➕ Nuevo usuario</button>
+        <br /><br />
+
+        <!-- TABLA DE USUARIOS -->
+        <table border="1" width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Usuario</th>
+              <th>Rol</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaUsuarios"></tbody>
+        </table>
+
+        <!-- FORMULARIO NUEVO USUARIO -->
+        <div id="nuevoUsuarioForm" style="display: none; margin-top: 20px">
+          <h3>Crear nuevo usuario</h3>
+          <label for="usuarioInput">Usuario</label>
+          <input
+            type="text"
+            id="usuarioInput"
+            placeholder="Nombre de usuario"
+          />
+          <label for="passwordInput">Contraseña</label>
+          <input type="password" id="passwordInput" placeholder="Contraseña" />
+          <label for="rol">Rol</label>
+          <select id="rol">
+            <option value="ADMIN">ADMIN</option>
+            <option value="CLIENTE" selected>CLIENTE</option>
+          </select>
+
+          <div style="margin-top: 10px">
+            <button type="button" id="guardarUsuarioBtn">Guardar</button>
+            <button type="button" id="cancelBtn">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/usuarios.js"></script>
+  </body>
+</html>

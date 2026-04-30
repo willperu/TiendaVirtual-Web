@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - Tienda Virtual</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Tienda Virtual</h2>
+      <p class="subtitle">Acceso al sistema</p>
+
+      <div id="mensajeError" style="color: red"></div>
+
+      <form id="loginForm">
+        <input
+          type="text"
+          id="username"
+          placeholder="Usuario"
+          required
+          autocomplete="username"
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Contraseña"
+          required
+          autocomplete="current-password"
+        />
+        <button type="submit">Ingresar</button>
+      </form>
+    </div>
+    <div id="toast-container"></div>
+    <script type="module" src="js/login.js"></script>
+  </body>
+</html>

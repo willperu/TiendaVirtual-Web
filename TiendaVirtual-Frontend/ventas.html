@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ventas - Tienda Virtual</title>
+
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <h2>Tienda</h2>
+
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="admin-productos.html">Productos</a></li>
+          <li><a href="ventas.html">Ventas</a></li>
+          <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTENIDO -->
+
+      <div class="main">
+        <h1>Ventas</h1>
+
+        <br /><br />
+
+        <table border="1" width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+
+          <tbody id="tablaVentas"></tbody>
+        </table>
+
+        <br />
+      </div>
+    </div>
+
+    <!--Buscar Fecha -->
+    <input type="date" id="buscarFecha" />
+    <button id="btnBuscarFecha">Buscar</button>
+
+    <div id="listaFechas"></div>
+
+    <hr />
+
+    <div id="ventasDia"></div>
+
+    <script src="js/ventas.js"></script>
+  </body>
+</html>

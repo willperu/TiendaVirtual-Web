@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard - Tienda Virtual</title>
+
+    <!-- CSS del dashboard -->
+    <link rel="stylesheet" href="dashboard.css" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <h2>Tienda</h2>
+        <ul>
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
+          <li><a href="admin-productos.html">Productos</a></li>
+          <li><a href="ventas.html">Ventas</a></li>
+          <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="#">Reportes</a></li>
+          <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTENIDO PRINCIPAL -->
+      <div class="main">
+        <h1>Dashboard</h1>
+
+        <div class="filtros">
+          <label>Filtrar por:</label>
+          <select id="filtroFecha">
+            <option value="1">Hoy</option>
+            <option value="7">Últimos 7 días</option>
+            <option value="30">Últimos 30 días</option>
+          </select>
+        </div>
+
+        <!-- TARJETAS DE MÉTRICAS -->
+        <div class="cards">
+          <div class="card">
+            <h3>Ventas hoy</h3>
+            <p id="ventasHoy">0</p>
+          </div>
+
+          <div class="card">
+            <h3>Ventas totales</h3>
+            <p id="ventasTotales">0</p>
+          </div>
+
+          <div class="card">
+            <h3>Producto más vendido</h3>
+            <p id="productoMasVendido">-</p>
+          </div>
+
+          <div class="card">
+            <h3>Productos con stock bajo</h3>
+            <p id="stockBajo">0</p>
+          </div>
+        </div>
+
+        <!-- GRÁFICOS -->
+        <div class="charts">
+          <div class="chart">
+            <h2>Ventas por día</h2>
+            <canvas id="ventasChart"></canvas>
+          </div>
+
+          <div class="chart">
+            <h2>Top productos vendidos</h2>
+            <canvas id="topProductosChart"></canvas>
+          </div>
+
+          <div class="chart">
+            <h2>Ventas por usuario</h2>
+            <canvas id="ventasUsuarioChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <!-- JS del dashboard -->
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

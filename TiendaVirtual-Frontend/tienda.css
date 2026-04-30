@@ -1,0 +1,544 @@
+/* ===== RESET BÁSICO ===== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c3e50;
+  color: white;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* ===== BADGE CARRITO ===== */
+#btnVerCarrito {
+  position: relative;
+  background: #27ae60;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+#btnVerCarrito:hover {
+  background: #219150;
+}
+
+#cantidadItems {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease;
+}
+
+#cantidadItems.pop {
+  transform: scale(1.3);
+}
+
+/* ===== BOTÓN COMPRAR ===== */
+#btnComprar {
+  background: #f39c12;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+#btnComprar:hover {
+  background: #e67e22;
+  transform: scale(1.05);
+}
+
+/* ===== GRID DE PRODUCTOS ===== */
+#productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* ===== CARD DE PRODUCTO ===== */
+.producto {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.producto:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.producto img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* ===== TEXTO ===== */
+.producto h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.producto p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+/* ===== BOTONES ===== */
+.producto button {
+  margin-top: 10px;
+  background: #3498db;
+  border: none;
+  padding: 10px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.producto button:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+
+.producto button:active,
+.item-carrito p button:active,
+.item-header button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
+}
+
+/* ===== MODAL ===== */
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
+  /* 🔥 CENTRADO  */
+  justify-content: center;
+  align-items: center;
+
+  /* 🔥 animación */
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.25s ease;
+
+  pointer-events: none;
+}
+
+.modal.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: white;
+  margin: 0; /* 👈 cambio clave */
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#modalConfirmacion .modal-content {
+  text-align: center;
+}
+
+#modalCheckout input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* ===== ITEMS DEL CARRITO ===== */
+.item-carrito {
+  padding: 10px 0;
+  transition: background 0.2s;
+}
+
+.item-carrito:hover {
+  background: #f0f0f0;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.item-header button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 8px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.item-header button:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+/* ===== BOTONES DE CANTIDAD ===== */
+.item-carrito p button {
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 8px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.item-carrito p button:hover {
+  background: #2980b9;
+  transform: scale(1.1);
+}
+
+/* ===== TOAST ===== */
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+}
+
+.toast {
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(-20px);
+  animation:
+    toastIn 0.3s forwards,
+    toastOut 0.3s 2.7s forwards;
+}
+
+.toast.info {
+  background: #3498db;
+}
+.toast.success {
+  background: #27ae60;
+}
+.toast.error {
+  background: #e74c3c;
+}
+
+.modal-content button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#confirmarCompra {
+  background: #27ae60;
+  color: white;
+}
+
+#cancelarCompra {
+  background: #e74c3c;
+  color: white;
+}
+
+#btnComprar:disabled,
+#btnVaciar:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@keyframes toastIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+#ticketContenido {
+  text-align: left;
+  margin-top: 10px;
+}
+
+#ticketContenido p {
+  margin: 5px 0;
+}
+
+#ticketContenido hr {
+  margin: 10px 0;
+}
+
+/* 🔥 animación badge */
+@keyframes badgePop {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.4);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.badge-anim {
+  animation: badgePop 0.3s ease;
+}
+
+/* contenedor */
+.exito-box {
+  text-align: center;
+  padding: 30px;
+}
+
+/* círculo */
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid #27ae60;
+  position: relative;
+  margin: 0 auto 20px;
+  animation: popIn 0.4s ease;
+}
+
+/* palito del check */
+.checkmark::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 40px;
+  width: 20px;
+  height: 10px;
+  border-left: 4px solid #27ae60;
+  border-bottom: 4px solid #27ae60;
+  transform: rotate(-45deg);
+  animation: drawCheck 0.4s 0.3s forwards;
+  opacity: 0;
+}
+
+/* animaciones */
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes drawCheck {
+  to {
+    opacity: 1;
+  }
+}
+
+.loader-box {
+  text-align: center;
+  padding: 30px;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #ddd;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: spin 1.4s ease-in-out infinite;
+  /* animation: girar 1ms linear infinite; */
+}
+
+@keyframes girar {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.badge-anim {
+  animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.7);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.btn-anim {
+  transform: scale(0.9);
+  transition: transform 0.15s ease;
+}
+/*
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-top: 2px solid #333;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 8px;
+  animation: spin 1.4s ease-in-out infinite;
+  /*  animation: spin 1.6s linear infinite; 
+}
+*/
+.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.btn-confirmar {
+  background-color: #28a745; /* verde */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-confirmar:hover {
+  background-color: #218838;
+}
+
+#cancelarCheckout {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#cancelarCheckout:hover {
+  background-color: #bbb;
+}
+
+.btn-confirmar:disabled {
+  background-color: #94d3a2;
+  cursor: not-allowed;
+}

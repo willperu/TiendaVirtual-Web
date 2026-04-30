@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tienda Virtual</title>
+    <link rel="stylesheet" href="tienda.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Tienda Virtual</h1>
+      <button id="btnVerCarrito">
+        🛒 Ver Carrito (<span id="cantidadItems">0</span>)
+      </button>
+    </header>
+
+    <main>
+      <div id="productos"></div>
+    </main>
+
+    <!-- Modal Carrito -->
+    <div id="modalCarrito" class="modal">
+      <div class="modal-content">
+        <span id="cerrarModal" class="close">&times;</span>
+        <h2>Mi Carrito 🛒</h2>
+        <div id="carritoContenido"></div>
+        <p id="totalCarrito">Total: S/ 0</p>
+        <button id="btnComprar">Comprar</button>
+        <button id="btnVaciar">🗑️ Vaciar carrito</button>
+      </div>
+    </div>
+
+    <!-- Modal Checkout Confirmacion  -->
+    <div id="modalCheckout" class="modal">
+      <div class="modal-content">
+        <h2>Finalizar compra 🧾</h2>
+
+        <input type="text" id="chkNombre" placeholder="Nombre completo" />
+        <input type="text" id="chkDireccion" placeholder="Dirección" />
+        <input type="text" id="chkTelefono" placeholder="Teléfono" />
+        <input type="email" id="chkEmail" placeholder="Email" />
+
+        <!-- 🔥 NUEVO: MÉTODO DE PAGO -->
+        <h3 style="margin-top: 10px">Método de pago 💳</h3>
+
+        <select id="chkPago">
+          <option value="">Seleccionar</option>
+          <option value="efectivo">💵 Efectivo</option>
+          <option value="tarjeta">💳 Tarjeta</option>
+          <option value="pix">⚡ Pix</option>
+        </select>
+
+        <div id="pagoExtra" style="margin-top: 10px"></div>
+
+        <div style="margin-top: 15px">
+          <button id="confirmarCheckout" class="btn-confirmar">
+            <span class="texto">✅ Confirmar</span>
+            <span class="spinner hidden"></span>
+          </button>
+          <button id="cancelarCheckout">❌ Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Ticket  -->
+    <div id="modalTicket" class="modal">
+      <div class="modal-content">
+        <h2>🧾 Comprobante de compra</h2>
+
+        <div id="ticketContenido"></div>
+
+        <button id="cerrarTicket">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Modal Exito  -->
+    <div id="modalExito" class="modal">
+      <div class="modal-content exito-box">
+        <div class="checkmark"></div>
+        <h2>Pago aprobado ✅</h2>
+        <p>Gracias por tu compra</p>
+      </div>
+    </div>
+
+    <!-- Modal Loader  -->
+    <div id="modalLoader" class="modal">
+      <div class="modal-content loader-box">
+        <div class="spinner"></div>
+        <p>Procesando pago...</p>
+      </div>
+    </div>
+
+    <!-- 👇 SOLO IMPORTAS TU JS -->
+    <script type="module" src="js/main.js"></script>
+
+    <div id="toast-container"></div>
+  </body>
+</html>
