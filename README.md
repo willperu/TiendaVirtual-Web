@@ -14,15 +14,21 @@ Sistema completo de tienda virtual con carrito de compras, autenticación JWT y 
 
 ## 🛍️ Flujo de compra
 
-### Catálogo y carrito
+### 📦 Catálogo y carrito
 
 ![Home](docs/images/1.0 home.png)
+
+---
+
+### 🛒 Carrito de compras
 ![Carrito](docs/images/1.1itemCarrito.png)
 
-### Checkout y pago
+---
 
-![Checkout](docs/images/1.2cheking.png)
-![Pago](docs/images/1.3pagamento.png)
+### 💳 Checkout y pago
+
+![Checkout](docs/images/1.2cheking.png)  
+![Pago](docs/images/1.3pagamento.png)  
 ![Confirmación](docs/images/1.4checkoff.png)
 
 ---
@@ -33,27 +39,36 @@ Sistema de métricas en tiempo real:
 
 ![Dashboard](docs/images/2.0 dashboard_con_filtro.png)
 
-### Ventas por día
+---
+
+### 📈 Ventas por día
+
 ![Ventas por día](docs/images/2.1 ventas_por_dia.png)
 
-### Top productos
+---
+
+### 🏆 Top productos
+
 ![Top productos](docs/images/2.2 top_productos_vendidos.png)
 
-### Ventas por usuario
+---
+
+### 👤 Ventas por usuario
+
 ![Ventas por usuario](docs/images/2.3 ventas_por_usuario.png)
 
 ---
 
 ## ⚙️ Tecnologías utilizadas
 
-**Backend**
+### Backend
 - Java 23
 - Spring Boot 3.2.2
 - Spring Security + JWT
 - Maven
 - MySQL
 
-**Frontend**
+### Frontend
 - HTML5
 - CSS3
 - JavaScript Vanilla
