@@ -102,6 +102,9 @@ public class VentaController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
+        
+        //temporal
+        System.out.println("USER AUTH: " + username);
 
         Usuario usuario = usuarioRepository.findByUsuario(username)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));

@@ -51,7 +51,10 @@ public class CarritoController {
     
     @GetMapping("/detalle")
     public Map<String, Object> obtenerCarritoDetalle(Authentication auth) {
-        System.out.println("Usuario autenticado: " + auth);
+        
+        String username = auth.getName();
+        
+        System.out.println("Usuario autenticado: " + username);
         return carritoService.verCarritoDetalle();
     }
      

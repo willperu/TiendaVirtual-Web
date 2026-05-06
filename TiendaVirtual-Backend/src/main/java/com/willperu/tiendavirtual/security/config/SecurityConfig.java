@@ -47,14 +47,15 @@ public class SecurityConfig {
             .requireExplicitSave(false)
         )
 
-        .authorizeHttpRequests(auth -> auth
+        .authorizeHttpRequests(auth -> auth                
+            .requestMatchers("/imagenes/**").permitAll()   
             .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
             .requestMatchers("/api/auth/**").permitAll()
             .requestMatchers("/api/productos/**").permitAll()
             .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
             .requestMatchers("/api/carrito/**").authenticated()
             .requestMatchers("/api/ventas/**").authenticated()
-            .requestMatchers("/api/dashboard/**").authenticated()
+            .requestMatchers("/api/dashboard/**").permitAll()
             .anyRequest().authenticated()
         )
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -74,5 +75,5 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
+    }    
 }

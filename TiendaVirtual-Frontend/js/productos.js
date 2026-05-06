@@ -12,9 +12,9 @@ export async function cargarProductos() {
     cont.innerHTML = data
       .map(
         (p) => `
-        <div class="producto">
-          <img src="imagenes/${p.imagen}" 
-              onerror="this.src='imagenes/default.png'" />
+        <div class="producto">        
+       <img src="http://localhost:8080/imagenes/${p.imagen}?v=${Date.now()}" 
+     onerror="this.src='http://localhost:8080/imagenes/default.png'" />
 
           <h3>${p.nombre}</h3>
           <p><strong>S/ ${p.precio}</strong></p>

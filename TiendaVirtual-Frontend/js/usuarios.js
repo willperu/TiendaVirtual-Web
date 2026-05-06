@@ -2,6 +2,19 @@ const API = "http://localhost:8080/api";
 
 const token = localStorage.getItem("token");
 
+function esAdmin(token) {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.rol === "ADMIN";
+  } catch {
+    return false;
+  }
+}
+
+if (!token || !esAdmin(token)) {
+  window.location.href = "login.html";
+}
+
 let usuarioEditandoId = null;
 
 function logout() {

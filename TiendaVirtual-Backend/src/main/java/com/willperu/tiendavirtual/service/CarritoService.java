@@ -143,8 +143,13 @@ public class CarritoService {
         Usuario usuario = obtenerUsuarioLogueado();
 
         Carrito carrito = carritoRepository.findByUsuario(usuario)
-                .orElseThrow(() -> new RuntimeException("Carrito vacío"));
-
+               // .orElseThrow(() -> new RuntimeException("Carrito vacío"));
+                
+                .orElseGet(() -> {
+            Carrito nuevo = new Carrito();
+            nuevo.setUsuario(usuario);
+            return carritoRepository.save(nuevo);
+            });     
         List<ItemCarrito> items = itemCarritoRepository.findByCarrito(carrito);
 
         BigDecimal total = BigDecimal.ZERO;

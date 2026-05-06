@@ -1,11 +1,37 @@
+import { requireAuth, isAdmin, logout } from "./auth.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const API = "http://localhost:8080/api";
   const token = localStorage.getItem("token");
 
+  // 🔒 1. VALIDAR TOKEN
   if (!token) {
     window.location.href = "login.html";
     return;
   }
+
+  // 🔒 2. VALIDAR ROL (SOLO ADMIN)
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+
+    const rol = payload.rol || payload.role || payload.roles;
+
+    const isAdmin =
+      rol === "ADMIN" ||
+      rol === "ROLE_ADMIN" ||
+      (Array.isArray(rol) && rol.includes("ROLE_ADMIN"));
+
+    if (!isAdmin) {
+      window.location.href = "login.html";
+      return;
+    }
+  } catch (e) {
+    console.error("Token inválido", e);
+    window.location.href = "login.html";
+    return;
+  }
+
+  // 🔓 SOLO ADMIN LLEGA AQUÍ
 
   // --- DOM ---
   const tablaBody = document.getElementById("tablaProductos");
@@ -14,6 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const nombreInput = document.getElementById("nombre");
   const precioInput = document.getElementById("precio");
   const stockInput = document.getElementById("stock");
+
+  // --- mostrar formulario ---
+  window.mostrarFormulario = function () {
+    productoIdInput.value = "";
+    nombreInput.value = "";
+    precioInput.value = "";
+    stockInput.value = "";
+
+    formProducto.style.display = "block";
+  };
+
   const btnGuardar = formProducto?.querySelector("button");
 
   // --- cargar productos ---
@@ -133,10 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logoutBtn");
 
   if (logoutBtn) {
-    logoutBtn.onclick = () => {
-      localStorage.removeItem("token");
-      window.location.href = "login.html";
-    };
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      logout();
+    });
   }
 
   // --- init ---

@@ -1,8 +1,17 @@
+function esAdmin(token) {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return (payload.rol || "").toUpperCase() === "ADMIN";
+  } catch {
+    return false;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const API = "http://localhost:8080/api";
   const token = localStorage.getItem("token");
 
-  if (!token) {
+  if (!token || !esAdmin(token)) {
     window.location.href = "login.html";
     return;
   }

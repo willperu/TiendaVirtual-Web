@@ -64,37 +64,48 @@ public class DashboardService {
 }
     
     
-  public DashboardDTO obtenerResumen(int dias) {
+public DashboardDTO obtenerResumen(int dias) {
 
     LocalDateTime fin = LocalDateTime.now();
     LocalDateTime inicio = fin.minusDays(dias);
 
-    // 🔹 Ventas en rango
-    BigDecimal ventasTotalesBD = ventaRepository
-            .sumarVentasEntreFechas(inicio, fin);
+    // 🔹 ventas del rango
+    BigDecimal ventasRangoBD =
+        ventaRepository.sumarVentasEntreFechas(inicio, fin);
 
-    Double ventasTotales = (ventasTotalesBD != null)
-            ? ventasTotalesBD.doubleValue()
-            : 0.0;
+    Double ventasRango = (ventasRangoBD != null)
+        ? ventasRangoBD.doubleValue()
+        : 0.0;
 
-    // 🔹 Producto más vendido en rango
+    // 🔹 ventas SOLO HOY
+    LocalDate hoy = LocalDate.now();
+    BigDecimal ventasHoyBD =
+        ventaRepository.sumarVentasEntreFechas(
+            hoy.atStartOfDay(),
+            hoy.atTime(23,59,59)
+        );
+
+    Double ventasHoy = (ventasHoyBD != null)
+        ? ventasHoyBD.doubleValue()
+        : 0.0;
+
+    // 🔹 producto más vendido
     List<ProductoVendidoDTO> productos =
-            detalleVentaRepository.obtenerTopProductosEntreFechas(inicio, fin);
+        detalleVentaRepository.obtenerTopProductosEntreFechas(inicio, fin);
 
     String productoMasVendido = productos.isEmpty()
-            ? "Ninguno"
-            : productos.get(0).getProducto();
+        ? "Ninguno"
+        : productos.get(0).getProducto();
 
-    // 🔹 Stock bajo (global)
     Long stockBajo = productoRepository.countByStockLessThan(5);
 
     return new DashboardDTO(
-            ventasTotales, // puedes ajustar si quieres separar hoy vs total
-            ventasTotales,
-            productoMasVendido,
-            stockBajo
+        ventasHoy,
+        ventasRango,
+        productoMasVendido,
+        stockBajo
     );
-} 
+}
    
    public List<VentasPorDiaDTO> obtenerVentasPorDia(int dias) {
 

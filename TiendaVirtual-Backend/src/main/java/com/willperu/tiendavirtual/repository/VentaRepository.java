@@ -70,8 +70,7 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
     """)
     List<VentasPorUsuarioDTO> obtenerVentasPorUsuario();
 
-    // 🔹 Ventas entre fechas (para cálculos manuales si quieres)
-    
+    // 🔹 Ventas entre fechas   
     
     @Query("SELECT v FROM Venta v LEFT JOIN FETCH v.detalles WHERE v.id = :id")
     Optional<Venta> findByIdConDetalles(@Param("id") Long id);
