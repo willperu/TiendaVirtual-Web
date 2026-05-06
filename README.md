@@ -1,83 +1,91 @@
 <Markdown>
-# 🛒 TiendaVirtual Web
-### Sistema Full Stack de E-commerce con Dashboard Administrativo
+🛒 TiendaVirtual Web
+Full Stack E-Commerce System (Spring Boot + Vanilla Frontend)
 
-Sistema completo de tienda virtual con carrito de compras, autenticación JWT y panel administrativo con métricas en tiempo real.
+Sistema completo de e-commerce con arquitectura REST, autenticación JWT y dashboard analítico. Simula un entorno real de tienda online con panel administrativo, control de ventas y gestión de usuarios.
 
----
+⚙️ Stack Técnico
 
-## 🏠 Vista principal del sistema
+Backend
 
-![Home](docs/images/1.0 home.png)
+Java 23
+Spring Boot 3.2.2
+Spring Security + JWT
+Maven
+MySQL
 
----
+Frontend
 
-## 🛍️ Flujo de compra
+HTML5
+CSS3 modular
+JavaScript Vanilla (sin frameworks)
 
-### Catálogo y carrito
+Herramientas
 
-![Home](docs/images/1.0 home.png)
-![Carrito](docs/images/1.1itemCarrito.png)
+MySQL Workbench
+Postman
+Git + GitHub
+🧠 Arquitectura
+API REST desacoplada del frontend
+Autenticación stateless con JWT
+Control de acceso basado en roles (ADMIN / USER)
+Separación por capas:
+Controller
+Service
+Repository
+🔐 Seguridad
+Login con JWT
+Expiración de tokens
+Protección de endpoints
+Validación por roles
+📊 Módulo Dashboard
 
-### Checkout y pago
+Incluye análisis en tiempo real:
 
-![Checkout](docs/images/1.2cheking.png)
-![Pago](docs/images/1.3pagamento.png)
-![Confirmación](docs/images/1.4checkoff.png)
+Ventas del día
+Ventas totales
+Producto más vendido
+Stock bajo
+Gráficos dinámicos:
+Ventas por día
+Top productos
+Ventas por usuario
+🛍️ Funcionalidades
+Cliente
+Catálogo de productos
+Carrito de compras dinámico
+Checkout con ticket
+Historial de compra (backend)
+Administrador
+Gestión de productos (CRUD)
+Visualización de ventas
+Control de usuarios
+Dashboard analítico
+📸 Capturas
 
----
+(mantienes las tuyas en docs/images — eso está perfecto así)
 
-## 📊 Dashboard administrativo
+⏱️ Desarrollo
 
-Sistema de métricas en tiempo real:
+Proyecto desarrollado en aproximadamente 2 meses, con apoyo de Inteligencia Artificial (ChatGPT) para:
 
-![Dashboard](docs/images/2.0 dashboard_con_filtro.png)
+optimización de lógica backend
+debugging de frontend
+mejora de arquitectura
+refactorización de código
+📁 Estructura
+backend/
+frontend/
+docs/
+ └── images/
+🎯 Objetivo del proyecto
 
-### Ventas por día
-![Ventas por día](docs/images/2.1 ventas_por_dia.png)
+Simular un sistema real de e-commerce con arquitectura profesional para práctica de:
 
-### Top productos
-![Top productos](docs/images/2.2 top_productos_vendidos.png)
-
-### Ventas por usuario
-![Ventas por usuario](docs/images/2.3 ventas_por_usuario.png)
-
----
-
-## ⚙️ Tecnologías utilizadas
-
-**Backend**
-- Java 23
-- Spring Boot 3.2.2
-- Spring Security + JWT
-- Maven
-- MySQL
-
-**Frontend**
-- HTML5
-- CSS3
-- JavaScript Vanilla
-
----
-
-## 🛍️ Funcionalidades
-
-- Catálogo de productos
-- Carrito de compras dinámico
-- Checkout con ticket
-- Autenticación JWT
-- Control de roles (ADMIN / USER)
-- Dashboard administrativo
-- Gestión de productos y usuarios
-
----
-
-## ⏱️ Desarrollo
-
-Proyecto desarrollado en aproximadamente 2 meses con apoyo de Inteligencia Artificial (ChatGPT) para optimización, depuración y mejora del sistema.
-
----
-
-## 👨‍💻 Autor
+Desarrollo full stack
+Seguridad en APIs
+Consumo de servicios REST
+Diseño de dashboards administrativos
+👨‍💻 Autor
 
 Will Peru
