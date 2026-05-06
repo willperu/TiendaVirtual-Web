@@ -1,62 +1,83 @@
-🛒 TiendaVirtual Web
+<Markdown>
+# 🛒 TiendaVirtual Web
+### Sistema Full Stack de E-commerce con Dashboard Administrativo
 
-Full Stack E-Commerce System (Spring Boot + Vanilla Frontend)
+Sistema completo de tienda virtual con carrito de compras, autenticación JWT y panel administrativo con métricas en tiempo real.
 
-Sistema completo de e-commerce con arquitectura REST, autenticación JWT y dashboard analítico.
+---
 
-🖥️ Vista general del sistema
+## 🏠 Vista principal del sistema
 
-⚙️ Stack Técnico
-Backend
-Java 23
-Spring Boot 3.2.2
-Spring Security + JWT
-Maven
-MySQL
-Frontend
-HTML5
-CSS3 modular
-JavaScript Vanilla
-Herramientas
-MySQL Workbench
-Postman
-Git + GitHub
-🧠 Arquitectura
+![Home](docs/images/1.0 home.png)
 
-API REST desacoplada del frontend
-Autenticación stateless con JWT
-Control de acceso por roles (ADMIN / USER)
+---
 
-🔐 Seguridad
-Login con JWT
-Expiración de tokens
-Protección de endpoints
-Validación por roles
+## 🛍️ Flujo de compra
 
-📊 Dashboard
-Ventas del día
-Ventas totales
-Producto más vendido
-Stock bajo
+### Catálogo y carrito
 
-🛍️ Funcionalidades
-Cliente
-Catálogo de productos
-Carrito dinámico
-Checkout con ticket
-Historial de compras
+![Home](docs/images/1.0 home.png)
+![Carrito](docs/images/1.1itemCarrito.png)
 
-Administrador
-CRUD de productos
-Gestión de usuarios
-Control de ventas
+### Checkout y pago
 
-📁 Estructura
-backend/
-frontend/
-docs/
- └── images/
+![Checkout](docs/images/1.2cheking.png)
+![Pago](docs/images/1.3pagamento.png)
+![Confirmación](docs/images/1.4checkoff.png)
 
------------------------------
-👨‍💻 Autor
-    Will Peru
+---
+
+## 📊 Dashboard administrativo
+
+Sistema de métricas en tiempo real:
+
+![Dashboard](docs/images/2.0 dashboard_con_filtro.png)
+
+### Ventas por día
+![Ventas por día](docs/images/2.1 ventas_por_dia.png)
+
+### Top productos
+![Top productos](docs/images/2.2 top_productos_vendidos.png)
+
+### Ventas por usuario
+![Ventas por usuario](docs/images/2.3 ventas_por_usuario.png)
+
+---
+
+## ⚙️ Tecnologías utilizadas
+
+**Backend**
+- Java 23
+- Spring Boot 3.2.2
+- Spring Security + JWT
+- Maven
+- MySQL
+
+**Frontend**
+- HTML5
+- CSS3
+- JavaScript Vanilla
+
+---
+
+## 🛍️ Funcionalidades
+
+- Catálogo de productos
+- Carrito de compras dinámico
+- Checkout con ticket
+- Autenticación JWT
+- Control de roles (ADMIN / USER)
+- Dashboard administrativo
+- Gestión de productos y usuarios
+
+---
+
+## ⏱️ Desarrollo
+
+Proyecto desarrollado en aproximadamente 2 meses con apoyo de Inteligencia Artificial (ChatGPT) para optimización, depuración y mejora del sistema.
+
+---
+
+## 👨‍💻 Autor
+
+Will Peru
