@@ -1,4 +1,5 @@
 <Markdown>
+       
 🛒 **TiendaVirtual Web**
 Full Stack E-Commerce System (Spring Boot + Vanilla Frontend)
 
@@ -50,7 +51,7 @@ Full Stack E-Commerce System (Spring Boot + Vanilla Frontend)
 - Validación por roles
 
 ----------------------------
-📊** Módulo Dashboard**
+📊 **Módulo Dashboard**
 
 Incluye análisis en tiempo real:
 
@@ -150,5 +151,5 @@ Simular un sistema real de e-commerce con arquitectura profesional para práctic
 - Diseño de dashboards administrativos
 
 ----------------------------
-👨‍💻**Autor**
+👨‍💻**Autor** : 
 **Will Peru**
