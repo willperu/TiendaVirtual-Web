@@ -1,20 +1,24 @@
 package com.willperu.tiendavirtual.service;
 
 import com.willperu.tiendavirtual.dto.DashboardDTO;
+import com.willperu.tiendavirtual.dto.HistorialEstadoDTO;
 import com.willperu.tiendavirtual.dto.ProductoVendidoDTO;
 import com.willperu.tiendavirtual.dto.ProductoVentaDTO;
 import com.willperu.tiendavirtual.dto.TopIngresosDTO;
 import com.willperu.tiendavirtual.dto.VentasPorDiaDTO;
 import com.willperu.tiendavirtual.dto.VentasPorUsuarioDTO;
+import com.willperu.tiendavirtual.enums.EstadoPedido;
 import com.willperu.tiendavirtual.model.Carrito;
 import com.willperu.tiendavirtual.model.Venta;
 import com.willperu.tiendavirtual.model.DetalleVenta;
 import com.willperu.tiendavirtual.model.ItemCarrito;
 import com.willperu.tiendavirtual.model.Producto;
 import com.willperu.tiendavirtual.model.Usuario;
+import com.willperu.tiendavirtual.model.HistorialEstadoPedido;
 import com.willperu.tiendavirtual.repository.CarritoRepository;
 import com.willperu.tiendavirtual.repository.VentaRepository;
 import com.willperu.tiendavirtual.repository.DetalleVentaRepository;
+import com.willperu.tiendavirtual.repository.HistorialEstadoPedidoRepository;
 import com.willperu.tiendavirtual.repository.ProductoRepository;
 import com.willperu.tiendavirtual.repository.UsuarioRepository;
 import java.math.BigDecimal;
@@ -45,6 +49,9 @@ public class VentaService {
 
     @Autowired
     private CarritoRepository carritoRepository;
+    
+    @Autowired
+    private HistorialEstadoPedidoRepository historialRepository;
 
     // LISTAR VENTAS
     public List<Venta> listarVentas() {
@@ -81,14 +88,17 @@ public class VentaService {
     }
     
     // OBTENER VENTAS PR USUARIO
-    public List<Venta> obtenerVentasPorUsuario(String username) {
+   public List<Venta> obtenerVentasPorUsuario(String username) {
+    //test   
+    System.out.println("JWT USERNAME: " + username);   
 
     Usuario usuario = usuarioRepository.findByUsuario(username)
-            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+            .orElseThrow(() ->
+                    new RuntimeException("Usuario no encontrado"));
 
-        return ventaRepository.findByUsuario(usuario); // ✅ ahora funciona
-    }
-    
+    return ventaRepository.findByUsuario(usuario);
+}
+
     // VENTAS POR USUARIO DTO
     public List<VentasPorUsuarioDTO> obtenerResumenVentasPorUsuario() {
         return ventaRepository.obtenerVentasPorUsuario();
@@ -122,6 +132,29 @@ public class VentaService {
         return ventaRepository.findAllConDetalles();
     }
     
+    //Para logistica
+    public Venta actualizarEstadoPedido(Long id, EstadoPedido estado) {
+
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+
+        // 🔹 actualizar estado actual
+        venta.setEstadoPedido(estado);
+
+        Venta ventaActualizada = ventaRepository.save(venta);
+
+        // 🔹 guardar historial
+        HistorialEstadoPedido historial = new HistorialEstadoPedido();
+
+        historial.setVenta(ventaActualizada);
+        historial.setEstado(estado);
+
+        historialRepository.save(historial);
+
+        return ventaActualizada;
+    }
+
+    
     public String obtenerProductoMasVendido() {
 
         List<ProductoVendidoDTO> lista = detalleVentaRepository.obtenerProductosMasVendidos();
@@ -143,7 +176,7 @@ public class VentaService {
         venta.setUsuario(usuario);
         venta.setFecha(LocalDateTime.now());
         venta.setTotal(BigDecimal.ZERO);
-
+               
         //venta = ventaRepository.save(venta);
 
         BigDecimal totalVenta = BigDecimal.ZERO;
@@ -270,5 +303,33 @@ public class VentaService {
                 .toList();
     }
     
-      
+    public List<HistorialEstadoDTO> obtenerHistorialPedido(
+        Long ventaId,
+        String username) {
+
+        Usuario usuario = usuarioRepository
+                .findByUsuario(username)
+                .orElseThrow(() ->
+                        new RuntimeException("Usuario no encontrado"));
+
+        Venta venta = ventaRepository.findById(ventaId)
+                .orElseThrow(() ->
+                        new RuntimeException("Venta no encontrada"));
+
+        // VALIDACIÓN CRÍTICA
+        if (!venta.getUsuario().getId().equals(usuario.getId())) {
+
+            throw new RuntimeException("Acceso denegado");
+        }
+
+        return historialRepository
+                .findByVentaOrderByFechaAsc(venta)
+                .stream()
+                .map(h -> new HistorialEstadoDTO(
+                        h.getEstado().name(),
+                        h.getFecha()
+                ))
+                .toList();
+    }    
+       
 }

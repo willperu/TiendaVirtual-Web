@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const tablaBody = document.getElementById("tablaVentas");
   const inputFecha = document.getElementById("buscarFecha");
   const btnBuscar = document.getElementById("btnBuscarFecha");
+  const filtroEstado = document.getElementById("filtroEstado");
 
   let ventasGlobal = [];
 
@@ -100,10 +101,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
           row.innerHTML = `
             <td>${v.id}</td>
+            <td>${v.usuario?.usuario || "-"}</td>
             <td>${productos}</td>
             <td>${cantidadTotal}</td>
             <td>S/ ${v.total}</td>
             <td>${formatearFecha(v.fecha)}</td>
+
+              <td>
+                <select class="estado-select estado-${v.estadoPedido}" data-id="${v.id}">
+                  <option value="PENDIENTE" ${v.estadoPedido === "PENDIENTE" ? "selected" : ""}>PENDIENTE</option>
+
+                  <option value="PAGADO" ${v.estadoPedido === "PAGADO" ? "selected" : ""}>PAGADO</option>
+
+                  <option value="PREPARANDO" ${v.estadoPedido === "PREPARANDO" ? "selected" : ""}>PREPARANDO</option>
+
+                  <option value="ENVIADO" ${v.estadoPedido === "ENVIADO" ? "selected" : ""}>ENVIADO</option>
+
+                  <option value="EN_CAMINO" ${v.estadoPedido === "EN_CAMINO" ? "selected" : ""}>EN CAMINO</option>
+
+                  <option value="ENTREGADO" ${v.estadoPedido === "ENTREGADO" ? "selected" : ""}>ENTREGADO</option>
+
+                  <option value="CANCELADO" ${v.estadoPedido === "CANCELADO" ? "selected" : ""}>CANCELADO</option>
+                </select>
+              </td>
           `;
 
           tablaBody.appendChild(row);
@@ -143,6 +163,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderVentas(filtradas);
   });
+  /* ================================== */
+  filtroEstado?.addEventListener("change", () => {
+    const estado = filtroEstado.value;
+
+    if (!estado) {
+      renderVentas(ventasGlobal);
+      return;
+    }
+
+    const filtradas = ventasGlobal.filter((v) => v.estadoPedido === estado);
+
+    renderVentas(filtradas);
+  });
+  /* ================================== */
+  tablaBody.addEventListener("change", async (e) => {
+    if (!e.target.classList.contains("estado-select")) return;
+
+    const estado = e.target.value;
+    e.target.className = `estado-select estado-${estado}`;
+    const id = e.target.dataset.id;
+
+    try {
+      const res = await fetch(`${API}/ventas/${id}/estado?estado=${estado}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Error actualizando estado");
+      }
+
+      console.log("✅ Estado actualizado");
+    } catch (err) {
+      console.error(err);
+      alert("No se pudo actualizar el estado");
+    }
+  });
 
   /* ================== CARGAR ================== */
   async function cargarVentas() {
@@ -162,6 +221,33 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("No se pudieron cargar las ventas.");
     }
   }
+
+  /* ================================== */
+  document.addEventListener("change", async (e) => {
+    if (!e.target.classList.contains("estado-select")) return;
+
+    const ventaId = e.target.dataset.id;
+    const nuevoEstado = e.target.value;
+
+    try {
+      const res = await fetch(
+        `${API}/ventas/${ventaId}/estado?estado=${nuevoEstado}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        },
+      );
+
+      if (!res.ok) throw new Error("Error actualizando estado");
+
+      console.log("Estado actualizado:", ventaId, nuevoEstado);
+    } catch (err) {
+      console.error(err);
+      alert("No se pudo actualizar el estado");
+    }
+  });
 
   /* ================== INIT ================== */
   cargarVentas();

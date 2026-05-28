@@ -67,9 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         console.log("REDIRECT EJECUTANDO...");
 
-        if (redirect) {
-          console.log("REDIRECT A:", redirect);
-          window.location.href = redirect;
+        if (redirect === "checkout") {
+          localStorage.removeItem("redirectAfterLogin");
+          window.location.href = "tienda.html?open=checkout";
           return;
         }
 

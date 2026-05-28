@@ -1,14 +1,17 @@
 package com.willperu.tiendavirtual.service;
 
 import com.willperu.tiendavirtual.dto.VentaDTO;
+import com.willperu.tiendavirtual.enums.EstadoPedido;
 import com.willperu.tiendavirtual.model.Carrito;
 import com.willperu.tiendavirtual.model.DetalleVenta;
+import com.willperu.tiendavirtual.model.HistorialEstadoPedido;
 import com.willperu.tiendavirtual.model.ItemCarrito;
 import com.willperu.tiendavirtual.model.Producto;
 import com.willperu.tiendavirtual.model.Usuario;
 import com.willperu.tiendavirtual.model.Venta;
 import com.willperu.tiendavirtual.repository.CarritoRepository;
 import com.willperu.tiendavirtual.repository.DetalleVentaRepository;
+import com.willperu.tiendavirtual.repository.HistorialEstadoPedidoRepository;
 import com.willperu.tiendavirtual.repository.ItemCarritoRepository;
 import com.willperu.tiendavirtual.repository.ProductoRepository;
 import com.willperu.tiendavirtual.repository.UsuarioRepository;
@@ -50,7 +53,10 @@ public class CarritoService {
     private DetalleVentaRepository detalleVentaRepository;
             
     @Autowired
-    private JdbcTemplate jdbcTemplate;        
+    private JdbcTemplate jdbcTemplate;   
+    
+    @Autowired
+    private HistorialEstadoPedidoRepository historialRepository;
     
     // 🔹 Obtener usuario logueado desde JWT
     private Usuario obtenerUsuarioLogueado() {
@@ -143,8 +149,7 @@ public class CarritoService {
         Usuario usuario = obtenerUsuarioLogueado();
 
         Carrito carrito = carritoRepository.findByUsuario(usuario)
-               // .orElseThrow(() -> new RuntimeException("Carrito vacío"));
-                
+                               
                 .orElseGet(() -> {
             Carrito nuevo = new Carrito();
             nuevo.setUsuario(usuario);
@@ -237,6 +242,8 @@ public class CarritoService {
         venta.setEmail(datos.getEmail());
 
         venta.setUsuario(user);
+        venta.setEstadoPedido(EstadoPedido.PENDIENTE);
+        
         BigDecimal total = BigDecimal.ZERO;
 
         for (ItemCarrito item : carrito.getItems()) {
@@ -269,7 +276,16 @@ public class CarritoService {
 
         venta.setDetalles(detalles);
 
-        ventaRepository.save(venta);
+        //ventaRepository.save(venta);
+        Venta ventaGuardada = ventaRepository.save(venta);
+
+        // 🔹 guardar historial inicial
+        HistorialEstadoPedido historial = new HistorialEstadoPedido();
+
+        historial.setVenta(ventaGuardada);
+        historial.setEstado(EstadoPedido.PENDIENTE);
+
+        historialRepository.save(historial);
 
         // limpiar carrito
         carrito.getItems().clear();

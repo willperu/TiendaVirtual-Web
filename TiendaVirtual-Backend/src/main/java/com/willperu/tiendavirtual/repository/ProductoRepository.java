@@ -20,11 +20,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
         WHERE p.stock <= :limite
     """)
     Long contarProductosStockBajo(int limite);
-   /* 
-    @Query("SELECT COUNT(p) FROM Producto p WHERE p.stock <= 2")
-    Long contarProductosStockBajo();
-   */
-
+   
 
     // Filtros opcionales
     List<Producto> findByCategoria(String categoria);

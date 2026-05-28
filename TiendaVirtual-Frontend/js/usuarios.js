@@ -40,9 +40,10 @@ async function cargarUsuarios() {
       <tr>
         <td>${u.id}</td>
         <td>${u.usuario}</td>
+        <td>${u.email}</td>
         <td>${u.rol}</td>
         <td>
-          <button onclick="editarUsuario(${u.id}, '${u.usuario}', '${u.rol}')">Editar</button>
+          <button onclick="editarUsuario(${u.id}, '${u.usuario}', '${u.email}', '${u.rol}')">Editar</button>
           <button onclick="eliminarUsuario(${u.id})">Eliminar</button>
         </td>
       </tr>
@@ -55,11 +56,27 @@ function mostrarFormulario() {
 }
 
 async function guardarUsuario() {
+  const email = document.getElementById("emailInput").value.trim();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    alert("Email inválido");
+    return;
+  }
+
   const usuario = {
     usuario: document.getElementById("usuarioInput").value,
     password: document.getElementById("passwordInput").value,
+    email: document.getElementById("emailInput").value,
     rol: document.getElementById("rol").value,
   };
+
+  // 🔥 VALIDACIÓN AQUÍ
+  if (!usuario.usuario || !usuario.password) {
+    alert("Completa todos los campos");
+    return;
+  }
 
   let url = `${API}/usuarios`;
   let metodo = "POST";
@@ -69,7 +86,7 @@ async function guardarUsuario() {
     metodo = "PUT";
   }
 
-  await fetch(url, {
+  const response = await fetch(url, {
     method: metodo,
     headers: {
       "Content-Type": "application/json",
@@ -78,25 +95,55 @@ async function guardarUsuario() {
     body: JSON.stringify(usuario),
   });
 
-  location.reload();
+  // 🔥 LEER MENSAJE DEL BACKEND
+  if (!response.ok) {
+    const errorData = await response.json();
+
+    alert(errorData.message);
+
+    return;
+  }
+
+  usuarioEditandoId = null;
+
+  document.getElementById("nuevoUsuarioForm").style.display = "none";
+
+  document.getElementById("usuarioInput").value = "";
+  document.getElementById("passwordInput").value = "";
+  document.getElementById("emailInput").value = "";
+
+  cargarUsuarios();
 }
 
 async function eliminarUsuario(id) {
   if (!confirm("¿Eliminar usuario?")) return;
 
-  await fetch(`${API}/usuarios/${id}`, {
+  const res = await fetch(`${API}/usuarios/${id}`, {
     method: "DELETE",
-
-    headers: { Authorization: "Bearer " + token },
+    headers: {
+      Authorization: "Bearer " + token,
+    },
   });
+
+  // 🔥 ERROR BACKEND
+  if (!res.ok) {
+    const msg = await res.text();
+
+    alert(msg || "No se pudo eliminar el usuario");
+
+    return;
+  }
+
+  alert("Usuario eliminado correctamente");
 
   cargarUsuarios();
 }
 
-function editarUsuario(id, usuario, rol) {
+function editarUsuario(id, usuario, email, rol) {
   usuarioEditandoId = id;
 
   document.getElementById("usuarioInput").value = usuario;
+  document.getElementById("emailInput").value = email;
   document.getElementById("passwordInput").value = "";
   document.getElementById("rol").value = rol;
 

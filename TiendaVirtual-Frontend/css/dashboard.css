@@ -8,6 +8,16 @@ body {
   display: flex;
 }
 
+.ubicacion {
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+table tbody tr {
+  cursor: pointer;
+}
+
 /* SIDEBAR */
 
 .sidebar {
@@ -92,12 +102,7 @@ body {
   flex: 1;
   max-height: 250px;
 }
-/*
-.chart canvas {
-  width: 100% !important;
-  height: auto !important;
-}
-*/
+
 .chart:last-child {
   grid-column: span 2;
   height: 350px;
@@ -118,4 +123,123 @@ body {
 .filtros select {
   padding: 5px 10px;
   border-radius: 5px;
+}
+
+/* ================== ESTADOS PEDIDOS ================== */
+
+.estado-select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+/* 🔥 Colores dinámicos */
+
+.estado-PENDIENTE {
+  background: #f39c12;
+}
+
+.estado-PAGADO {
+  background: #3498db;
+}
+
+.estado-PREPARANDO {
+  background: #9b59b6;
+}
+
+.estado-ENVIADO {
+  background: #2980b9;
+}
+
+.estado-EN_CAMINO {
+  background: #16a085;
+}
+
+.estado-ENTREGADO {
+  background: #27ae60;
+}
+
+.estado-CANCELADO {
+  background: #e74c3c;
+}
+
+/* ================== BADGES CLIENTE ================== */
+
+.estado-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ================== TIMELINE TRACKING ================== */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timeline-step {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #dcdde1;
+  color: #2f3640;
+  font-size: 12px;
+  font-weight: bold;
+
+  min-width: 90px;
+  text-align: center;
+}
+
+.timeline-step.active {
+  background: #27ae60;
+  color: white;
+}
+
+.timeline-step.current {
+  background: #3498db;
+  color: white;
+}
+
+table td {
+  vertical-align: top;
+}
+
+/* Estados tracking */
+
+.timeline-step.pendiente {
+  background: #f1c40f;
+  color: #000;
+}
+
+.timeline-step.pagado {
+  background: #3498db;
+  color: white;
+}
+
+.timeline-step.preparando {
+  background: #9b59b6;
+  color: white;
+}
+
+.timeline-step.enviado {
+  background: #16a085;
+  color: white;
+}
+
+.timeline-step.en-camino {
+  background: #e67e22;
+  color: white;
+}
+
+.timeline-step.entregado {
+  background: #27ae60;
+  color: white;
 }

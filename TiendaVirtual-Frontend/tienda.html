@@ -4,16 +4,48 @@
     <meta charset="UTF-8" />
     <title>Tienda Virtual</title>
     <link rel="stylesheet" href="css/tienda.css" />
+    <link rel="stylesheet" href="css/banner.css" />
   </head>
   <body>
     <header>
       <h1>Tienda Virtual</h1>
-      <button id="btnVerCarrito">
-        🛒 Ver Carrito (<span id="cantidadItems">0</span>)
-      </button>
+
+      <div class="ubicacion">📍 Ingresa tu ubicación</div>
+
+      <div class="header-actions">
+        <button id="btnLogin">Login</button>
+
+        <button id="btnRegistro">Registrarse</button>
+
+        <button id="btnVerCarrito">
+          🛒 Ver Carrito (<span id="cantidadItems">0</span>)
+        </button>
+
+        <button id="btnMisCompras">📦 Mis Compras</button>
+      </div>
     </header>
 
     <main>
+      <!-- Banner Frontal -->
+      <section class="banner">
+        <div class="slides">
+          <img src="img/banner1.jpg" class="slide active" />
+
+          <img src="img/banner2.jpg" class="slide" />
+
+          <img src="img/banner3.jpg" class="slide" />
+        </div>
+      </section>
+
+      <div class="filtros">
+        <button onclick="filtrarCategoria('TODOS')">Todos</button>
+
+        <button onclick="filtrarCategoria('ELECTRONICOS')">Electrónicos</button>
+
+        <button onclick="filtrarCategoria('HOGAR')">Hogar</button>
+
+        <button onclick="filtrarCategoria('ROPA')">Ropa</button>
+      </div>
       <div id="productos"></div>
     </main>
 
@@ -91,6 +123,12 @@
 
     <!-- 👇 SOLO IMPORTAS TU JS -->
     <script type="module" src="js/main.js"></script>
+
+    <div id="modalProducto" class="modal-producto">
+      <div class="modal-producto-box">
+        <div id="modalProductoContenido"></div>
+      </div>
+    </div>
 
     <div id="toast-container"></div>
   </body>

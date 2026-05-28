@@ -30,7 +30,17 @@ export async function agregarAlCarrito(productoId) {
 // ================== MOSTRAR ==================
 export async function mostrarCarrito() {
   const headers = authHeader();
-  if (!headers) return { items: [], total: 0, cantidad: 0 };
+  const token = localStorage.getItem("token");
+
+  // 🟡 SIN LOGIN → no backend
+  if (!token || !headers) {
+    return {
+      items: [],
+      total: 0,
+      cantidad: 0,
+      guest: true,
+    };
+  }
 
   const res = await fetch(`${API}/carrito/detalle`, {
     headers,
@@ -38,7 +48,16 @@ export async function mostrarCarrito() {
 
   if (!res.ok) {
     console.error("Error mostrar carrito:", res.status);
-    throw new Error("Error al obtener carrito");
+
+    // 🔥 token inválido o expirado
+    localStorage.removeItem("token");
+
+    return {
+      items: [],
+      total: 0,
+      cantidad: 0,
+      guest: true,
+    };
   }
 
   const data = await res.json();
@@ -106,6 +125,13 @@ export async function vaciarCarrito() {
 
 // ================== COMPRAR ==================
 export async function comprarCarrito(datosCliente) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    localStorage.setItem("redirectAfterLogin", "checkout_open_cart");
+    window.location.href = "login.html";
+    return;
+  }
   const headers = authHeader();
   if (!headers) return null;
 

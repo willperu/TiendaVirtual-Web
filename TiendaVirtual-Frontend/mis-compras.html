@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mis Compras</title>
+
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <h2>Tienda</h2>
+
+        <ul>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="#" id="abrirCarrito">Carrito</a></li>
+          <li><a href="mis-compras.html">Mis Compras</a></li>
+          <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTENIDO -->
+      <div class="main">
+        <h1>Mis Compras</h1>
+
+        <div class="filtros-compras">
+          <select id="filtroEstado">
+            <option value="">Todos</option>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="PAGADO">Pagado</option>
+            <option value="PREPARANDO">Preparando</option>
+            <option value="ENVIADO">Enviado</option>
+            <option value="EN_CAMINO">En camino</option>
+            <option value="ENTREGADO">Entregado</option>
+          </select>
+        </div>
+
+        <table border="1" width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Fecha</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Tracking</th>
+            </tr>
+          </thead>
+
+          <tbody id="tablaCompras"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script type="module" src="js/mis-compras.js"></script>
+  </body>
+</html>

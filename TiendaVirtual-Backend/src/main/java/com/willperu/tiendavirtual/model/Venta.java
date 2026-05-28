@@ -1,5 +1,9 @@
 package com.willperu.tiendavirtual.model;
 
+
+import com.willperu.tiendavirtual.enums.EstadoPedido;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,8 +23,9 @@ public class Venta {
     private String direccion;
     private String telefono;
     private String email;
-
- 
+    
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estadoPedido; 
     
     
     //private String usuario;
@@ -117,4 +122,15 @@ public class Venta {
     public void setDetalles(List<DetalleVenta> detalles) {
         this.detalles = detalles;
     }
+    
+    // get set para logistica
+
+    public EstadoPedido getEstadoPedido() {
+        return estadoPedido;
+    }
+
+    public void setEstadoPedido(EstadoPedido estadoPedido) {
+        this.estadoPedido = estadoPedido;
+    }
+    
 }

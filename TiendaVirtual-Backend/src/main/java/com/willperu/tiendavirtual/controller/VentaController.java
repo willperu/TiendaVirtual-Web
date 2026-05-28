@@ -1,11 +1,13 @@
 package com.willperu.tiendavirtual.controller;
 
+import com.willperu.tiendavirtual.dto.HistorialEstadoDTO;
 import com.willperu.tiendavirtual.dto.ProductoVendidoDTO;
 import com.willperu.tiendavirtual.dto.ProductoVentaDTO;
 import com.willperu.tiendavirtual.model.Venta;
 import com.willperu.tiendavirtual.service.VentaService;
 import com.willperu.tiendavirtual.dto.TopIngresosDTO;
 import com.willperu.tiendavirtual.dto.VentasPorDiaDTO;
+import com.willperu.tiendavirtual.enums.EstadoPedido;
 import com.willperu.tiendavirtual.model.Usuario;
 import com.willperu.tiendavirtual.repository.UsuarioRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -72,6 +75,19 @@ public class VentaController {
         return ventaService.obtenerVentaConDetalles(id);
     }
     
+    @GetMapping("/{id}/historial")
+    public List<HistorialEstadoDTO> obtenerHistorial(
+            @PathVariable Long id) {
+
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        String username = auth.getName();
+
+        return ventaService.obtenerHistorialPedido(id, username);
+    }
+    
     @GetMapping("/por-fecha")
     public List<Venta> ventasPorFecha(
             @RequestParam String desde,
@@ -111,33 +127,16 @@ public class VentaController {
 
         return ventaService.registrarVenta(productos, usuario);
     }
-/*
-    // 🔹 REGISTRAR VENTA (⚠️ mantener por ahora)
-    @PostMapping("/registrar")
-    public Venta registrarVenta(@RequestBody List<ProductoVentaDTO> productos) {
+    
+    // logistica
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<?> actualizarEstado(
+            @PathVariable Long id,
+            @RequestParam EstadoPedido estado) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+        ventaService.actualizarEstadoPedido(id, estado);
 
-        Usuario usuario = usuarioRepository.findByUsuario(username)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        return ventaService.registrarVenta(productos, usuario);
+        return ResponseEntity.ok("Estado actualizado correctamente");
     }
 
-    // 🔹 CHECKOUT (⚠️ temporal, luego eliminar)
-    @PostMapping("/checkout")
-    public String finalizarCompra() {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-
-        Usuario usuario = usuarioRepository.findByUsuario(username)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        ventaService.finalizarCompra(usuario);
-
-        return "Compra realizada con éxito";
-    }
- */
 }

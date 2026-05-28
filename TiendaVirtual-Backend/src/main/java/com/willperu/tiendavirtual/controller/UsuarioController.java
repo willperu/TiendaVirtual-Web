@@ -3,6 +3,7 @@ package com.willperu.tiendavirtual.controller;
 
 import com.willperu.tiendavirtual.model.Usuario;
 import com.willperu.tiendavirtual.service.UsuarioService;
+import jakarta.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,8 @@ public class UsuarioController {
     }
     
     @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario usuario){
+    public Usuario crearUsuario(
+        @Valid @RequestBody Usuario usuario){
         return usuarioService.guardarUsuario(usuario);
     }
     
@@ -41,7 +43,9 @@ public class UsuarioController {
     }
     
     @PutMapping("/{id}")
-    public Usuario actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
+    public Usuario actualizarUsuario(
+        @PathVariable Long id,
+        @Valid @RequestBody Usuario usuario){
         usuario.setId(id);
         return usuarioService.guardarUsuario(usuario);
     }

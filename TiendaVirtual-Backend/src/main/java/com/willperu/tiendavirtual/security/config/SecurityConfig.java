@@ -27,7 +27,6 @@ public class SecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
    
     
      @Bean
@@ -42,13 +41,22 @@ public class SecurityConfig {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         )
 
-        // 🔥 👉 AGREGA ESTO
+        
         .securityContext(securityContext -> securityContext
             .requireExplicitSave(false)
         )
 
-        .authorizeHttpRequests(auth -> auth                
-            .requestMatchers("/imagenes/**").permitAll()   
+        .authorizeHttpRequests(auth -> auth 
+            // 🔓 AUTH PÚBLICO
+        .requestMatchers(
+            "/api/auth/login",
+            "/api/auth/forgot-password",
+            "/api/auth/reset-password"
+        ).permitAll()                   
+              
+                
+            .requestMatchers("/imagenes/**").permitAll() 
+            .requestMatchers("/storage/**").permitAll()    
             .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
             .requestMatchers("/api/auth/**").permitAll()
             .requestMatchers("/api/productos/**").permitAll()
@@ -56,24 +64,24 @@ public class SecurityConfig {
             .requestMatchers("/api/carrito/**").authenticated()
             .requestMatchers("/api/ventas/**").authenticated()
             .requestMatchers("/api/dashboard/**").permitAll()
-            .anyRequest().authenticated()
+            .anyRequest().authenticated()                  
+              
         )
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
          return http.build();
      }
     
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://127.0.0.1:5500", "http://localhost:5500"));
-        //configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
-        configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+            CorsConfiguration configuration = new CorsConfiguration();
+            configuration.setAllowedOrigins(List.of("http://127.0.0.1:5500", "http://localhost:5500"));        
+            configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
+            configuration.setAllowedHeaders(List.of("*"));
+            configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }    
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/**", configuration);
+            return source;
+        }    
 }

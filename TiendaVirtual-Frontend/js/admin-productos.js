@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const nombreInput = document.getElementById("nombre");
   const precioInput = document.getElementById("precio");
   const stockInput = document.getElementById("stock");
+  const categoriaInput = document.getElementById("categoria");
+  const descripcionInput = document.getElementById("descripcion");
+  const coloresInput = document.getElementById("colores");
+  const tallasInput = document.getElementById("tallas");
 
   // --- mostrar formulario ---
   window.mostrarFormulario = function () {
@@ -47,8 +51,18 @@ document.addEventListener("DOMContentLoaded", () => {
     nombreInput.value = "";
     precioInput.value = "";
     stockInput.value = "";
+    categoriaInput.value = "";
 
-    formProducto.style.display = "block";
+    descripcionInput.value = "";
+    coloresInput.value = "";
+    tallasInput.value = "";
+
+    formProducto.style.display = "flex";
+  };
+
+  // ------ Cerrar Formulario --------
+  window.cerrarFormulario = function () {
+    formProducto.style.display = "none";
   };
 
   const btnGuardar = formProducto?.querySelector("button");
@@ -70,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <tr ${p.stock <= 2 ? 'class="table-warning"' : ""}>
             <td>${p.id}</td>
             <td>${p.nombre}</td>
+            <td>${p.categoria || "-"}</td>
             <td>${p.precio}</td>
             <td>${p.stock}</td>
             <td>
@@ -100,8 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
       nombreInput.value = p.nombre;
       precioInput.value = p.precio;
       stockInput.value = p.stock;
+      categoriaInput.value = p.categoria;
 
-      formProducto.style.display = "block";
+      descripcionInput.value = p.descripcion || "";
+      coloresInput.value = p.colores || "";
+      tallasInput.value = p.tallas || "";
+
+      formProducto.style.display = "flex";
     } catch (error) {
       console.error(error);
       alert("No se pudo cargar el producto.");
@@ -133,14 +153,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const nombre = nombreInput.value.trim();
     const precio = parseFloat(precioInput.value);
     const stock = parseInt(stockInput.value);
+    const categoria = categoriaInput.value;
 
-    if (!nombre || isNaN(precio) || isNaN(stock)) {
+    if (!nombre || isNaN(precio) || isNaN(stock) || !categoria) {
       alert("Completa todos los campos correctamente.");
       return;
     }
 
-    const producto = { nombre, precio, stock };
+    const producto = {
+      nombre,
+      precio,
+      stock,
+      categoria,
 
+      descripcion: descripcionInput.value,
+      colores: coloresInput.value,
+      tallas: tallasInput.value,
+    };
     const metodo = id ? "PUT" : "POST";
     const url = id ? `${API}/productos/${id}` : `${API}/productos`;
 

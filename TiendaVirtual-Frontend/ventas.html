@@ -12,12 +12,12 @@
       <!-- SIDEBAR -->
       <div class="sidebar">
         <h2>Tienda</h2>
-
         <ul>
-          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
           <li><a href="admin-productos.html">Productos</a></li>
           <li><a href="ventas.html">Ventas</a></li>
           <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="tienda.html">🛍 Volver a la tienda</a></li>
           <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
         </ul>
       </div>
@@ -33,10 +33,13 @@
           <thead>
             <tr>
               <th>ID</th>
+              <th>Cliente</th>
               <th>Producto</th>
               <th>Cantidad</th>
               <th>Total</th>
               <th>Fecha</th>
+              <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
 
@@ -50,6 +53,18 @@
     <!--Buscar Fecha -->
     <input type="date" id="buscarFecha" />
     <button id="btnBuscarFecha">Buscar</button>
+
+    <!-- Filtro por estdo -->
+    <select id="filtroEstado">
+      <option value="">-- Filtrar Estado --</option>
+      <option value="PENDIENTE">PENDIENTE</option>
+      <option value="PAGADO">PAGADO</option>
+      <option value="PREPARANDO">PREPARANDO</option>
+      <option value="ENVIADO">ENVIADO</option>
+      <option value="EN_CAMINO">EN CAMINO</option>
+      <option value="ENTREGADO">ENTREGADO</option>
+      <option value="CANCELADO">CANCELADO</option>
+    </select>
 
     <div id="listaFechas"></div>
 

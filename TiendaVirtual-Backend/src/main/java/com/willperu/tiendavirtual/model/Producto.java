@@ -33,14 +33,16 @@ public class Producto {
 
     @Size(max = 50, message = "La categoría no puede superar 50 caracteres")
     private String categoria;
-
-    @Size(max = 500, message = "La descripción no puede superar 500 caracteres")
+           
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
 
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion;
     
-    private String imagen;
+    private String imagen;    
+    private String colores;
+    private String tallas;
 
     public String getImagen() {
         return imagen;
@@ -49,7 +51,22 @@ public class Producto {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
-    
+
+    public String getColores() {
+        return colores;
+    }
+
+    public void setColores(String colores) {
+        this.colores = colores;
+    }
+
+    public String getTallas() {
+        return tallas;
+    }
+
+    public void setTallas(String tallas) {
+        this.tallas = tallas;
+    }    
     
 
     // Constructor vacío (obligatorio JPA)

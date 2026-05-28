@@ -22,6 +22,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtil jwtUtil;
+    
+    @Override
+        protected boolean shouldNotFilter(HttpServletRequest request) {
+
+            String path = request.getServletPath();
+
+            return path.startsWith("/api/auth/")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/storage/")
+                || path.startsWith("/imagenes/");
+        }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -32,21 +44,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 🔍 DEBUG (puedes dejarlo o quitarlo luego)
         System.out.println("Request path: " + request.getServletPath());
         System.out.println("Authorization header: " + request.getHeader("Authorization"));
-        /*
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-        */
-        // 🔓 Ignorar endpoints públicos
-        String path = request.getServletPath();
-        if (path.startsWith("/api/auth/") ||
-            path.startsWith("/swagger-ui") ||
-            path.startsWith("/v3/api-docs")) {
-
-            filterChain.doFilter(request, response);
-            return;
-        }
+        
+        
 
         String authHeader = request.getHeader("Authorization");
 

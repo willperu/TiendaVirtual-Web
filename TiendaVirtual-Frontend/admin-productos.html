@@ -5,6 +5,7 @@
     <title>Productos - Tienda Virtual</title>
 
     <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/admin-productos.css" />
   </head>
 
   <body>
@@ -12,12 +13,12 @@
       <!-- SIDEBAR -->
       <div class="sidebar">
         <h2>Tienda</h2>
-
         <ul>
-          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
           <li><a href="admin-productos.html">Productos</a></li>
           <li><a href="ventas.html">Ventas</a></li>
           <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="tienda.html">🛍 Volver a la tienda</a></li>
           <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
         </ul>
       </div>
@@ -35,6 +36,7 @@
             <tr>
               <th>ID</th>
               <th>Nombre</th>
+              <th>Categoría</th>
               <th>Precio</th>
               <th>Stock</th>
               <th>Acciones</th>
@@ -48,18 +50,49 @@
 
         <!-- FORMULARIO -->
 
-        <div id="formularioProducto" style="display: none">
-          <h3>Producto</h3>
+        <!-- <div id="formularioProducto" style="display: none"> -->
+          <div id="formularioProducto" class="modal-formulario">
 
-          <input type="hidden" id="productoId" />
+            <div class="modal-contenido">
 
-          <input type="text" id="nombre" placeholder="Nombre" />
+              <span class="cerrar-modal" onclick="cerrarFormulario()"> × </span>
 
-          <input type="number" id="precio" placeholder="Precio" />
+              <h2>Producto</h2>          
 
-          <input type="number" id="stock" placeholder="Stock" />
+              <input type="hidden" id="productoId" />
 
-          <button onclick="guardarProducto()">Guardar</button>
+              <input type="text" id="nombre" placeholder="Nombre" />
+
+              <input type="number" id="precio" placeholder="Precio" />
+
+              <input type="number" id="stock" placeholder="Stock" />
+
+              <label>Imagen del producto</label>
+
+              <input type="file" id="imagenFile" accept="image/*" />s
+
+                <select id="categoria">
+                  <option value="">Seleccione categoría</option>
+
+                  <option value="ELECTRONICOS">Electrónicos</option>
+
+                  <option value="HOGAR">Hogar</option>
+
+                  <option value="JUGUETES">Juguetes</option>
+
+                  <option value="ROPA">Ropa</option>
+                </select>
+
+              <textarea id="descripcion"></textarea>
+
+              <input type="text" id="colores" placeholder="Negro, Azul" />
+
+              <input type="text" id="tallas" placeholder="S,M,L,XL" />
+
+              <button onclick="guardarProducto()">Guardar</button>
+
+            </div>   
+          </div>         
         </div>
       </div>
     </div>

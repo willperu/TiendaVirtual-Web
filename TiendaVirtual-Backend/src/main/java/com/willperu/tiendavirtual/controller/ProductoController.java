@@ -24,6 +24,15 @@ public class ProductoController {
     public List<Producto> listarProductos(){
         return productoService.listarProductos();
     }
+    
+    // 🔥 FILTRO CATEGORÍA
+    @GetMapping("/categoria/{categoria}")
+    public List<Producto> listarPorCategoria(
+            @PathVariable String categoria) {
+
+        return productoService
+                .listarPorCategoria(categoria);
+    }
 
     // GUARDAR PRODUCTO → SOLO ADMIN
     @PreAuthorize("hasRole('ADMIN')")

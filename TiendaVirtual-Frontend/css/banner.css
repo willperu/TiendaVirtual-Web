@@ -1,0 +1,37 @@
+.banner {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.slides {
+  position: relative;
+  width: 100%;
+  height: 400px;
+
+  overflow: hidden;
+  border-radius: 12px;
+
+  margin-top: 15px;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  display: none;
+}
+
+.slide.active {
+  display: block;
+}
+
+.banner {
+  width: 100%;
+  margin: 20px 0 30px 0;
+}
+
+main {
+  padding: 20px;
+}

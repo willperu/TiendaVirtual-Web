@@ -490,19 +490,7 @@ header h1 {
   transform: scale(0.9);
   transition: transform 0.15s ease;
 }
-/*
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #ccc;
-  border-top: 2px solid #333;
-  border-radius: 50%;
-  display: inline-block;
-  margin-left: 8px;
-  animation: spin 1.4s ease-in-out infinite;
-  /*  animation: spin 1.6s linear infinite; 
-}
-*/
+
 .hidden {
   display: none;
 }
@@ -541,4 +529,138 @@ header h1 {
 .btn-confirmar:disabled {
   background-color: #94d3a2;
   cursor: not-allowed;
+}
+
+/* ===== HEADER ACTIONS ===== */
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#btnLogin,
+#btnRegistro {
+  background: #3498db;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+#btnLogin:hover,
+#btnRegistro:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+
+/* Modal Producto2 */
+
+.modal-producto {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-producto.show {
+  display: flex;
+}
+
+.modal-producto-box {
+  background: white;
+  width: 500px;
+  max-width: 90%;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+}
+
+.modal-img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.precio {
+  font-size: 24px;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.descripcion {
+  margin-top: 15px;
+  color: #555;
+}
+
+.btn-agregar-modal {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #111;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.modal-producto-box {
+  width: 700px; /* antes 500px → ahora más ancho */
+  max-width: 95%;
+}
+
+.modal-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.modal-info {
+  flex: 1;
+}
+
+.modal-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-img {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.cerrar-modal {
+  all: unset;
+
+  position: absolute;
+  top: 10px;
+  right: 15px;
+
+  font-size: 32px;
+  font-weight: bold;
+
+  cursor: pointer;
+  color: #333;
+
+  z-index: 9999;
+}
+
+.cerrar-modal:hover {
+  color: red;
+}
+
+.modal-producto-box {
+  position: relative;
 }

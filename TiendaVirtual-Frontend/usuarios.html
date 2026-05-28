@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Usuarios - Tienda Virtual</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
     <link rel="stylesheet" href="css/usuarios.css" />
   </head>
 
@@ -12,10 +13,11 @@
       <div class="sidebar">
         <h2>Tienda</h2>
         <ul>
-          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
           <li><a href="admin-productos.html">Productos</a></li>
           <li><a href="ventas.html">Ventas</a></li>
           <li><a href="usuarios.html">Usuarios</a></li>
+          <li><a href="tienda.html">🛍 Volver a la tienda</a></li>
           <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
         </ul>
       </div>
@@ -32,6 +34,7 @@
             <tr>
               <th>ID</th>
               <th>Usuario</th>
+              <th>Email</th>
               <th>Rol</th>
               <th>Acciones</th>
             </tr>
@@ -50,6 +53,13 @@
           />
           <label for="passwordInput">Contraseña</label>
           <input type="password" id="passwordInput" placeholder="Contraseña" />
+
+          <label for="emailInput">Email</label>
+          <input
+            type="email"
+            id="emailInput"
+            placeholder="Correo electrónico"
+          />
           <label for="rol">Rol</label>
           <select id="rol">
             <option value="ADMIN">ADMIN</option>

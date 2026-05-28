@@ -15,6 +15,14 @@ public class ProductoService {
     public List<Producto> listarProductos(){
         return productoRepository.findAll();
     }
+    
+        // 🔥 FILTRAR POR CATEGORÍA
+    public List<Producto> listarPorCategoria(
+            String categoria) {
+
+        return productoRepository
+                .findByCategoria(categoria);
+    }
 
     public Producto guardarProducto(Producto producto){
         return productoRepository.save(producto);
@@ -44,7 +52,13 @@ public class ProductoService {
         if(productoExistente != null){
             productoExistente.setNombre(producto.getNombre());
             productoExistente.setPrecio(producto.getPrecio());
-            productoExistente.setStock(producto.getStock());
+            productoExistente.setStock(producto.getStock());            
+            productoExistente.setCategoria(producto.getCategoria());
+            
+            productoExistente.setDescripcion(producto.getDescripcion());
+            productoExistente.setColores(producto.getColores());
+            productoExistente.setTallas(producto.getTallas());
+
 
             return productoRepository.save(productoExistente);
         }

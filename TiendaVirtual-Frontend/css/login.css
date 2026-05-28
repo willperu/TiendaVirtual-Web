@@ -59,7 +59,7 @@ button:hover {
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 9999;
+  z-index: 999999;
 }
 
 .toast {
@@ -88,4 +88,34 @@ button:hover {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.registro-link {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.registro-link a {
+  color: #3498db;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.registro-link a:hover {
+  text-decoration: underline;
+}
+
+#registroForm button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* separar botones */
+#registroForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

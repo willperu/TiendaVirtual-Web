@@ -115,7 +115,7 @@ public DashboardDTO obtenerResumen(int dias) {
         return ventaRepository.obtenerVentasPorDiaEntreFechas(inicio, fin);
     }
    
-  public List<ProductoVendidoDTO> obtenerTopProductos(int dias) {
+     public List<ProductoVendidoDTO> obtenerTopProductos(int dias) {
 
         LocalDateTime fin = LocalDateTime.now();
         LocalDateTime inicio = fin.minusDays(dias);
