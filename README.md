@@ -102,6 +102,15 @@ Historial de compra (backend)
 ### ✅ Confirmación
 ![Confirmación](docs/images/1.4checkoff.png)
 
+### 📝 Descripción del producto
+![Descripción](docs/images/1.5%20descripcion.png)
+
+### 📦 Estado del pedido
+![Status](docs/images/1.6%20status.png)
+
+### 🔐 Login
+![Login](docs/images/1.7%20login.png)
+
 ### 📊 Dashboard
 ![Dashboard](docs/images/2.0%20dashboard_con_filtro.png)
 
