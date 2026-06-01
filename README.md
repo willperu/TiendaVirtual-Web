@@ -4,7 +4,8 @@
 Full Stack E-Commerce System (Spring Boot + Vanilla Frontend)
 
 - Sistema completo de e-commerce con arquitectura REST, autenticación JWT y dashboard analítico.
-- Simula un entorno real de tiend a online con panel administrativo, control de ventas y gestión de usuarios.
+- Simula un entorno real de tienda online con panel administrativo, control de ventas, gestión de usuarios y seguimiento de pedidos.
+- Incluye recuperación de contraseña por email, gestión de banners promocionales y catálogo dinámico de productos.
 
 ------------------------------
 ⚙️ **Stack Técnico**
@@ -51,6 +52,9 @@ Full Stack E-Commerce System (Spring Boot + Vanilla Frontend)
 - Expiración de tokens
 - Protección de endpoints
 - Validación por roles
+- Recuperación de contraseña por email
+- Flujo de recuperación en 2 pasos
+- Validación de email para registro de usuarios
 
 ----------------------------
 📊 **Módulo Dashboard**
@@ -69,16 +73,27 @@ Incluye análisis en tiempo real:
 ----------------------------
 🛍️ **Funcionalidades**
 
-Cliente
+### Cliente
+
 - Catálogo de productos
+- Visualización detallada del producto con información técnica
 - Carrito de compras dinámico
 - Checkout con ticket
-
+- Registro de usuario con validación de email
+- Recuperación de contraseña en 2 pasos
+- Historial de compras
+- Consulta de estado de pedidos y entregas
 ---------------------------  
-Historial de compra (backend)
+### Experiencia visual
 
-- Administrador
+- Banners promocionales dinámicos
+- Transición automática cada 3 segundos
+- Navegación intuitiva y responsive
+---------------------------  
+### Administrador
+
 - Gestión de productos (CRUD)
+- Gestión de banners
 - Visualización de ventas
 - Control de usuarios
 - Dashboard analítico
