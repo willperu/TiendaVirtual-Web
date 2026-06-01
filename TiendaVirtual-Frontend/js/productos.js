@@ -5,78 +5,71 @@ import { agregarAlCarrito } from "./carrito.js";
 function renderizarProductos(data) {
   console.log("LISTA DE PRODUCTOS:", data);
 
-  data.forEach((p) => {
-    console.log("PRODUCTO:", p);
-  });
-
   const cont = document.getElementById("productos");
-
   if (!cont) return;
 
-  cont.innerHTML = data
-    .map(
-      (p) => `
-        <div 
-          class="producto"
-          data-id="${p.id}"
-          data-nombre="${p.nombre}"
-          data-precio="${p.precio}"
-          data-imagen="${p.imagen}"
-          data-stock="${p.stock}"
-          data-colores="${p.colores}"
-          data-tallas="${p.tallas}"
-          data-descripcion="${p.descripcion}"
-        >        
+  cont.innerHTML = "";
 
-          <img src="${
-            p.imagen.startsWith("/storage")
-              ? `http://localhost:8080${p.imagen}`
-              : `http://localhost:8080/imagenes/${p.imagen}`
-          }?v=${Date.now()}"
-  
-            onerror="this.onerror=null; this.src='http://localhost:8080/imagenes/default.png'"
-          />
+  data.forEach((p) => {
+    console.log("IMAGEN:", p.imagen);
 
-          <h3>${p.nombre}</h3>
+    const card = document.createElement("div");
+    card.className = "producto";
 
-          <p><strong>S/ ${p.precio}</strong></p>
-          
-          
-          <button class="btn-ver-producto" data-id="${p.id}">
-            👁 Ver producto
-          </button>
+    card.dataset.id = p.id;
+    card.dataset.nombre = p.nombre;
+    card.dataset.precio = p.precio;
+    card.dataset.imagen = p.imagen;
+    card.dataset.stock = p.stock;
+    card.dataset.colores = p.colores;
+    card.dataset.tallas = p.tallas;
+    card.dataset.descripcion = p.descripcion;
 
-        </div>
-      `,
-    )
-    .join("");
+    const img = document.createElement("img");
 
-  // 🔥 CLICK EN PRODUCTO
-  document.querySelectorAll(".producto").forEach((card) => {
+    const url = `http://localhost:8080/imagenes/${p.imagen}`;
+    console.log("URL IMAGEN:", url);
+
+    img.src = url;
+    img.onerror = () => {
+      img.src = "http://localhost:8080/imagenes/default.png";
+    };
+
+    const title = document.createElement("h3");
+    title.textContent = p.nombre;
+
+    const price = document.createElement("p");
+    price.innerHTML = `<strong>S/ ${p.precio}</strong>`;
+
+    const btn = document.createElement("button");
+    btn.className = "btn-ver-producto";
+    btn.textContent = "👁 Ver producto";
+
     const abrirModal = () => {
       abrirModalProducto(
-        card.dataset.id,
-        card.dataset.nombre,
-        card.dataset.precio,
-        card.dataset.imagen,
-        card.dataset.stock,
-        card.dataset.colores,
-        card.dataset.tallas,
-        card.dataset.descripcion,
+        p.id,
+        p.nombre,
+        p.precio,
+        p.imagen,
+        p.stock,
+        p.colores,
+        p.tallas,
+        p.descripcion,
       );
     };
 
-    // 🔥 CLICK EN CARD
     card.addEventListener("click", abrirModal);
-
-    // 🔥 CLICK EN BOTÓN
-    const btn = card.querySelector(".btn-ver-producto");
-
-    btn?.addEventListener("click", (e) => {
+    btn.addEventListener("click", (e) => {
       e.stopPropagation();
-
       abrirModal();
     });
+
+    card.appendChild(img);
+    card.appendChild(title);
+    card.appendChild(price);
+    card.appendChild(btn);
+
+    cont.appendChild(card);
   });
 }
 

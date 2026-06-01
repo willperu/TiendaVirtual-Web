@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const descripcionInput = document.getElementById("descripcion");
   const coloresInput = document.getElementById("colores");
   const tallasInput = document.getElementById("tallas");
+  const imagenInput = document.getElementById("imagenFile");
 
   // --- mostrar formulario ---
   window.mostrarFormulario = function () {
@@ -65,8 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
     formProducto.style.display = "none";
   };
 
+  const btnGuardar = document.getElementById("btnGuardar");
+  /*
   const btnGuardar = formProducto?.querySelector("button");
-
+*/
   // --- cargar productos ---
   async function cargarProductos() {
     try {
@@ -160,16 +163,22 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const producto = {
-      nombre,
-      precio,
-      stock,
-      categoria,
+    const formData = new FormData();
 
-      descripcion: descripcionInput.value,
-      colores: coloresInput.value,
-      tallas: tallasInput.value,
-    };
+    formData.append("nombre", nombre);
+    formData.append("precio", precio);
+    formData.append("stock", stock);
+    formData.append("categoria", categoria);
+
+    formData.append("descripcion", descripcionInput.value);
+    formData.append("colores", coloresInput.value);
+    formData.append("tallas", tallasInput.value);
+
+    // 🔥 IMAGEN
+    if (imagenInput.files.length > 0) {
+      formData.append("imagen", imagenInput.files[0]);
+    }
+
     const metodo = id ? "PUT" : "POST";
     const url = id ? `${API}/productos/${id}` : `${API}/productos`;
 
@@ -177,10 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch(url, {
         method: metodo,
         headers: {
-          "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
-        body: JSON.stringify(producto),
+        body: formData,
       });
 
       if (!res.ok) throw new Error("Error guardando producto");

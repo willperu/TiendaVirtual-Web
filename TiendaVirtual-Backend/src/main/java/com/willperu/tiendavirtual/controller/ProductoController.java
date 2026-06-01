@@ -5,11 +5,19 @@ import com.willperu.tiendavirtual.service.ProductoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
-import jakarta.validation.Valid;
+import java.io.IOException;
+import java.math.BigDecimal;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequestMapping("/api/productos")
 @RestController
@@ -35,11 +43,59 @@ public class ProductoController {
     }
 
     // GUARDAR PRODUCTO → SOLO ADMIN
+    
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
-    public Producto guardarProducto(@Valid @RequestBody Producto producto){
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Producto guardarProducto(
+
+            @RequestParam("nombre") String nombre,
+            @RequestParam("precio") BigDecimal precio,
+            @RequestParam("stock") Integer stock,
+            @RequestParam("categoria") String categoria,
+
+            @RequestParam(value = "descripcion", required = false) String descripcion,
+            @RequestParam(value = "colores", required = false) String colores,
+            @RequestParam(value = "tallas", required = false) String tallas,
+
+            @RequestParam(value = "imagen", required = false) MultipartFile imagen
+
+    ) throws IOException {
+
+        Producto producto = new Producto();
+
+        producto.setNombre(nombre);
+        producto.setPrecio(precio);
+        producto.setStock(stock);
+        producto.setCategoria(categoria);
+
+        producto.setDescripcion(descripcion);
+        producto.setColores(colores);
+        producto.setTallas(tallas);
+
+        // 🔥 GUARDAR IMAGEN
+        if (imagen != null && !imagen.isEmpty()) {
+
+            String nombreArchivo = imagen.getOriginalFilename();
+
+            // 🔥 carpeta según categoría
+            String carpeta = categoria.toLowerCase();
+
+            Path ruta = Paths.get(
+                    "storage/productos/" + carpeta + "/" + nombreArchivo
+            );
+
+            Files.createDirectories(ruta.getParent());
+
+            Files.write(ruta, imagen.getBytes());
+
+            producto.setImagen(
+                carpeta + "/" + nombreArchivo
+            );
+         }
+       
         return productoService.guardarProducto(producto);
     }
+   
     
     // PRODUCTOS CON STOCK BAJO → SOLO ADMIN
     @PreAuthorize("hasRole('ADMIN')")
@@ -63,8 +119,59 @@ public class ProductoController {
     
     // ACTUALIZAR PRODUCTO → SOLO ADMIN
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}")
-    public Producto actualizarProducto(@PathVariable Long id, @Valid @RequestBody Producto producto){
-        return productoService.actualizarProducto(id, producto);
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Producto actualizarProducto(
+
+            @PathVariable Long id,
+
+            @RequestParam("nombre") String nombre,
+            @RequestParam("precio") BigDecimal precio,
+            @RequestParam("stock") Integer stock,
+            @RequestParam("categoria") String categoria,
+
+            @RequestParam(value = "descripcion", required = false) String descripcion,
+            @RequestParam(value = "colores", required = false) String colores,
+            @RequestParam(value = "tallas", required = false) String tallas,
+
+            @RequestParam(value = "imagen", required = false) MultipartFile imagen
+
+    ) throws IOException {
+
+        Producto producto = productoService.obtenerProducto(id);
+
+        producto.setNombre(nombre);
+        producto.setPrecio(precio);
+        producto.setStock(stock);
+        producto.setCategoria(categoria);
+
+        producto.setDescripcion(descripcion);
+        producto.setColores(colores);
+        producto.setTallas(tallas);
+
+        // 🔥 SI HAY IMAGEN NUEVA
+        if (imagen != null && !imagen.isEmpty()) {
+
+            String nombreArchivo = imagen.getOriginalFilename();
+
+            // 🔥 carpeta según categoría
+            String carpeta = categoria.toLowerCase();
+
+            Path ruta = Paths.get(
+                    "storage/productos/" + carpeta + "/" + nombreArchivo
+            );
+
+            Files.createDirectories(ruta.getParent());
+
+            Files.write(ruta, imagen.getBytes());
+
+            producto.setImagen(
+                carpeta + "/" + nombreArchivo
+            );
+        }
+        
+       
+        return productoService.guardarProducto(producto);
     }
+    
+ 
 }

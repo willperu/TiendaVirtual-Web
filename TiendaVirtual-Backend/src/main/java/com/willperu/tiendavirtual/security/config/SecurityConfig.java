@@ -56,7 +56,8 @@ public class SecurityConfig {
               
                 
             .requestMatchers("/imagenes/**").permitAll() 
-            .requestMatchers("/storage/**").permitAll()    
+            .requestMatchers("/banners/**").permitAll()    
+            .requestMatchers("/error").permitAll()   
             .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
             .requestMatchers("/api/auth/**").permitAll()
             .requestMatchers("/api/productos/**").permitAll()
