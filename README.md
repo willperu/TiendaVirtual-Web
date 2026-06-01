@@ -30,6 +30,8 @@ Full Stack E-Commerce System (Spring Boot + Vanilla Frontend)
 - MySQL Workbench
 - `Postman`
 - Git + GitHub
+- Netbeans IDE 23
+- Visual Studio Code
 
 ----------------------------
 🧠 **Arquitectura**
