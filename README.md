@@ -123,6 +123,9 @@ Historial de compra (backend)
 
 ### ➕ Registro usuario
 ![Registro](docs/images/4.1%20checkin_usuario.png)
+
+### 🛠️ Gerenciador de productos
+![Gerenciador productos](docs/images/5.0%20gerenciador-productos.png)
 ----------------------------
 ⏱️ **Desarrollo**
 
