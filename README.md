@@ -28,7 +28,7 @@ Full Stack E-Commerce System (Spring Boot + Vanilla Frontend)
 **Herramientas**
 
 - MySQL Workbench
-- Postman
+-`Postman`
 - Git + GitHub
 
 ----------------------------
