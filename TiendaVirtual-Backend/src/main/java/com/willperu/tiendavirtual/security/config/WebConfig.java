@@ -9,10 +9,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
+        
+        /*   RAILWAY
         registry.addResourceHandler("/imagenes/**")               
                 .addResourceLocations("file:" + System.getProperty("user.dir") + "/storage/productos/");
-        /*
+        
         registry.addResourceHandler("/banners/**")
                 .addResourceLocations("file:storage/banners/");
         */
