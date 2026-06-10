@@ -9,7 +9,8 @@ function esAdmin(token) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const API = "http://localhost:8080/api/auth";
+  //const API = "http://localhost:8080/api/auth"; //LOCAL
+  export const API = "https://tiendavirtual-web-production.up.railway.app/api"; // Railway Producción
   const form = document.getElementById("loginForm");
 
   if (!form) return;

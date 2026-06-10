@@ -27,12 +27,15 @@ function renderizarProductos(data) {
 
     const img = document.createElement("img");
 
-    const url = `http://localhost:8080/imagenes/${p.imagen}`;
+    //const url = `http://localhost:8080/imagenes/${p.imagen}`;  //LOCAL
+    `/imagenes/${p.imagen}`; //RAILWAY
     console.log("URL IMAGEN:", url);
 
     img.src = url;
+
     img.onerror = () => {
-      img.src = "http://localhost:8080/imagenes/default.png";
+      // img.src = "http://localhost:8080/imagenes/default.png"; //LOCAL
+      img.src = "/imagenes/default.png"; // RAILWAY
     };
 
     const title = document.createElement("h3");
@@ -142,7 +145,7 @@ window.abrirModalProducto = function (
 
     <div class="modal-image">
       <img 
-        src="http://localhost:8080/imagenes/${imagen}" 
+        src="/imagenes/${imagen}" 
         class="modal-img"
       />
     </div>
@@ -163,6 +166,7 @@ window.abrirModalProducto = function (
 
 </div>
 `;
+  // src="http://localhost:8080/imagenes/${imagen}" //LOCAL
 
   // ✔ BUSCAR DENTRO DEL CONTENIDO
   const btnCerrar = contenido.querySelector(".cerrar-modal");

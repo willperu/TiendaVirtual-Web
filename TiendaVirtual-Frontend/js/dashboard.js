@@ -1,5 +1,6 @@
 import { requireAuth, isAdmin, logout } from "./auth.js";
-const API = "http://localhost:8080/api";
+//const API = "http://localhost:8080/api";  // LOCAL
+import { API } from "./config.js"; //Railway Producción
 
 let chartVentas, chartProductos, chartUsuarios;
 

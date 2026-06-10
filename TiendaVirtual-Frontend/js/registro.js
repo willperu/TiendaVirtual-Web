@@ -1,5 +1,5 @@
-const API = "http://localhost:8080/api/usuarios";
-
+//const API = "http://localhost:8080/api/usuarios"; //LOCAL
+const API = "https://tiendavirtual-web-production.up.railway.app/api/usuarios"; // RAILWAY
 const form = document.getElementById("registroForm");
 
 /* ================= REGISTRO ================= */

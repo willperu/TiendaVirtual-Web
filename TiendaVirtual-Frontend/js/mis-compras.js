@@ -3,7 +3,8 @@ function obtenerToken() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const API = "http://localhost:8080/api";
+  //const API = "http://localhost:8080/api"; //LOCAL
+  const API = "https://tiendavirtual-web-production.up.railway.app/api"; // Railway Producción
   const token = obtenerToken();
 
   if (!token) {

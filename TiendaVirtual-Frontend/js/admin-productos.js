@@ -1,7 +1,8 @@
 import { requireAuth, isAdmin, logout } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const API = "http://localhost:8080/api";
+  //const API = "http://localhost:8080/api"; (LOCAL)
+  const API = "https://tiendavirtual-web-production.up.railway.app/api";
   const token = localStorage.getItem("token");
 
   // 🔒 1. VALIDAR TOKEN

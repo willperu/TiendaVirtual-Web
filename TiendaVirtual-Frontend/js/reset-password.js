@@ -22,7 +22,8 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch(
-      "http://localhost:8080/api/auth/reset-password",
+      //"http://localhost:8080/api/auth/reset-password", //LOCAL
+      "https://tiendavirtual-web-production.up.railway.app/api/auth/reset-password", //RAILWAY
       {
         method: "POST",
         headers: {
